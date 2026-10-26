@@ -1,0 +1,36 @@
+name: Medicine database sync
+
+on:
+  schedule:
+    - cron: '30 20 * * *'   # 02:30 Asia/Dhaka every day
+  workflow_dispatch: {}      # the "Update now" button in OmniPulse
+
+permissions:
+  contents: write
+
+concurrency:
+  group: medicine-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Merge new medicines
+        env:
+          TRIGGER: ${{ github.event_name }}
+        run: node scripts/sync-medicines.mjs
+      - name: Commit changes
+        run: |
+          git config user.name "medicine-sync[bot]"
+          git config user.email "medicine-sync@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          ADDED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('last-sync.json','utf8')).added)")
+          git commit -m "chore(db): update medicine database (+${ADDED} new records)"
+          git push
