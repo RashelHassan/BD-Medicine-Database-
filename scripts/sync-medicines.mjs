@@ -49,5 +49,7 @@ const summary = {
   added: result.newRowsCount,
   total: result.totalCount,
 };
-writeFileSync('last-sync.json', JSON.stringify(summary, null, 2) + '\n');
+// Written only when rows were added, so a quiet day makes no commit. OmniPulse reads this file
+// to tell "12 rows added" from "unchanged" for each run.
+if (result.newRowsCount > 0) writeFileSync('last-sync.json', JSON.stringify(summary, null, 2) + '\n');
 console.log(JSON.stringify(summary));
