@@ -1,8 +1,8 @@
 {
-  "lastRunAt": "2026-11-18T02:29:28.000Z",
+  "lastRunAt": "2026-11-19T01:55:47.220Z",
   "trigger": "schedule",
-  "existing": 41597,
-  "fromSource": 41628,
-  "added": 19,
-  "total": 41616
+  "existing": 41616,
+  "fromSource": 41629,
+  "added": 1,
+  "total": 41617
 }
