@@ -1,8 +1,8 @@
 {
-  "lastRunAt": "2026-11-24T04:56:42.866Z",
-  "trigger": "schedule",
-  "existing": 41643,
-  "fromSource": 41674,
-  "added": 20,
-  "total": 41663
+  "lastRunAt": "2026-11-25T05:34:30.583Z",
+  "trigger": "workflow_dispatch",
+  "existing": 41663,
+  "fromSource": 41675,
+  "added": 1,
+  "total": 41664
 }
